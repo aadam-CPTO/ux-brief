@@ -69,7 +69,8 @@ create index        if not exists invite_tokens_session_idx  on invite_tokens(se
 -- ─── updated_at trigger ──────────────────────────────────────────────────────
 
 create or replace function update_updated_at()
-returns trigger language plpgsql as $$
+returns trigger language plpgsql
+set search_path = '' as $$
 begin
   new.updated_at = now();
   return new;
