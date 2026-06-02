@@ -1,0 +1,23 @@
+.page { min-height: 100vh; }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
+.logo { font-family: var(--font-serif); font-size: 17px; letter-spacing: -0.02em; }
+.mono { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+.main { max-width: 760px; margin: 0 auto; padding: 2rem 1.5rem; }
+.section { margin-bottom: 3rem; }
+.sectionTitle { font-size: 13px; font-weight: 500; margin-bottom: 1.25rem; color: var(--text-2); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; margin-bottom: 1rem; }
+.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
+.label { font-size: 12px; font-weight: 500; color: var(--text-2); }
+
+.linksPanel { margin-top: 1.25rem; padding: 1rem; background: var(--bg-2); border-radius: var(--radius); border: 1px solid var(--border); }
+.linksLabel { font-size: 12px; color: var(--text-2); margin-bottom: .75rem; }
+.linkRow { display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; }
+.linkEmail { font-size: 12px; font-family: var(--font-mono); color: var(--text-3); min-width: 180px; }
+.linkInput { font-family: var(--font-mono); font-size: 11px; color: var(--text-2); cursor: pointer; }
+
+.sessionCard { border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: .75rem; }
+.sessionMeta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.sessionName { font-weight: 500; }
+.sessionActions { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+@media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } }
