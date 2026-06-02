@@ -21,7 +21,10 @@ export async function POST(req: NextRequest) {
       }]
     })
 
-    const rawText = message.content[0].type === 'text' ? message.content[0].text : ''
+    const rawText = message.content
+      .filter((b): b is Anthropic.TextBlock => b.type === 'text')
+      .map(b => b.text)
+      .join('')
     const concept = parseConceptResponse(rawText)
 
     // 2. Persist to Supabase

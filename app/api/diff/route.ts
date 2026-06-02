@@ -41,7 +41,10 @@ export async function POST(req: NextRequest) {
       messages: [{ role: 'user', content: buildDiffPrompt(shaped as any) }]
     })
 
-    const rawText = message.content[0].type === 'text' ? message.content[0].text : ''
+    const rawText = message.content
+      .filter((b): b is Anthropic.TextBlock => b.type === 'text')
+      .map(b => b.text)
+      .join('')
     const items = parseDiffResponse(rawText)
 
     // 4. Upsert diff (replaces previous diff for this session)

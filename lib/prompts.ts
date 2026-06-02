@@ -92,14 +92,24 @@ Include 3 aligned items, 3 tension items, and 3 priority items. Be specific — 
 
 // ─── Parse Claude's JSON response safely ────────────────────────────────────
 
+// Strips code fences and any prose before/after the JSON object, then parses.
+// Tolerant of models that add a sentence around the JSON despite instructions.
+function extractJson(raw: string): string {
+  let s = raw.replace(/```json/gi, '').replace(/```/g, '').trim()
+  const start = s.indexOf('{')
+  const end = s.lastIndexOf('}')
+  if (start !== -1 && end !== -1 && end > start) {
+    s = s.slice(start, end + 1)
+  }
+  return s
+}
+
 export function parseConceptResponse(raw: string): Concept {
-  const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-  const parsed = JSON.parse(cleaned)
+  const parsed = JSON.parse(extractJson(raw))
   return { ...parsed, rawText: raw }
 }
 
 export function parseDiffResponse(raw: string): DiffItem[] {
-  const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-  const parsed = JSON.parse(cleaned)
-  return parsed.items as DiffItem[]
+  const parsed = JSON.parse(extractJson(raw))
+  return (parsed.items ?? []) as DiffItem[]
 }
